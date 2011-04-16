@@ -12,8 +12,7 @@ package AnyEvent::MockTCPServer;
     AnyEvent::MockTCPServer->new(connections =>
                                  [
                                   [ # first connection
-                                   [ recv => 'HELLO',
-                                     'wait for "HELLO"' ],
+                                   [ recv => 'HELLO', 'wait for "HELLO"' ],
                                    [ sleep => 0.1, 'wait 0.1s' ],
                                    [ code => sub { $cv->send('done') },
                                      'send "done" with condvar'),
