@@ -1,4 +1,4 @@
 Revision history for Perl extension AnyEvent::MockTCPServer.
 
-{{$NEXT}}
+1.111060  2011-04-16 23:19:50 Europe/London
     - Initial release.
