@@ -9,6 +9,6 @@ Homepage: http://search.cpan.org/dist/AnyEvent-MockTCPServer/
 
 Package: libanyevent-mocktcpserver-perl
 Architecture: all
-Depends: ${perl:Depends}, ${misc:Depends}, libAnyEvent-perl
+Depends: ${perl:Depends}, ${misc:Depends}, libanyevent-perl
 Description: AnyEvent::MockTCPServer Perl Module
  Blah blah blah
