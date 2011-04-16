@@ -1,0 +1,5 @@
+/AnyEvent-MockTCPServer-*
+/.build
+*~
+/.tdldb.bak
+/temp

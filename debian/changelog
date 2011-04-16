@@ -1,0 +1,5 @@
+libanyevent-mocktcpserver-perl (1.111060-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Mark Hindess <soft-debian@temporalanomaly.com>  Sat, 16 Apr 2011 11:31:33 +0100
