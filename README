@@ -85,6 +85,12 @@ METHODS
     proceed with the next action. Must be called by any action methods
     written in subclasses of this class.
 
+ACTION ARGUMENTS
+    These methods (and methods added by derived classes) can be used in
+    action lists passed via the constructor "connections" parameter. The
+    "handle" and "actions" arguments should be omitted from the action lists
+    as they are supplied by the framework.
+
 ACTION METHODS
   "send($handle, $actions, $send, $desc)"
     Sends the payload, "send", to the client.
@@ -111,12 +117,6 @@ ACTION METHODS
   "code($handle, $actions, $code, $desc)"
     Causes the server to execute the code reference with the client handle
     as the first argument.
-
-ACTIONS
-    These methods (and methods added by derived classes) can be used in
-    action lists passed via the constructor "connections" parameter. The
-    "handle" and "actions" arguments should be omitted from the action lists
-    as they are supplied by the framework.
 
 AUTHOR
     Mark Hindess <soft-cpan@temporalanomaly.com>

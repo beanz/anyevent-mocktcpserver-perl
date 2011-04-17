@@ -318,6 +318,13 @@ Internal method called by the action methods when the server should
 proceed with the next action.  Must be called by any action methods
 written in subclasses of this class.
 
+=head1 ACTION ARGUMENTS
+
+These methods (and methods added by derived classes) can be used in
+action lists passed via the constructor C<connections> parameter.  The
+C<handle> and C<actions> arguments should be omitted from the action
+lists as they are supplied by the framework.
+
 =head1 ACTION METHODS
 
 =head2 C<send($handle, $actions, $send, $desc)>
@@ -352,13 +359,6 @@ Causes the server to sleep for C<$interval> seconds.
 
 Causes the server to execute the code reference with the client handle
 as the first argument.
-
-=head1 ACTIONS
-
-These methods (and methods added by derived classes) can be used in
-action lists passed via the constructor C<connections> parameter.  The
-C<handle> and C<actions> arguments should be omitted from the action
-lists as they are supplied by the framework.
 
 =head1 AUTHOR
 
