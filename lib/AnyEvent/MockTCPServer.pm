@@ -17,7 +17,6 @@ use AnyEvent;
 use AnyEvent::Socket;
 use AnyEvent::Handle;
 use Test::More;
-use Scalar::Util qw/weaken/;
 use Sub::Name;
 
 
@@ -35,7 +34,6 @@ sub new {
      @_
     };
   bless $self, $pkg;
-  my $weak_self = $self; weaken $self;
   $self->{server} =
     tcp_server $self->{host}, $self->{port}, subname('accept_cb' =>
       sub {

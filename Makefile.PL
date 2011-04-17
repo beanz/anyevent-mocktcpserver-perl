@@ -25,7 +25,6 @@ my %WriteMakefileArgs = (
     'AnyEvent' => '0',
     'AnyEvent::Handle' => '0',
     'AnyEvent::Socket' => '0',
-    'Scalar::Util' => '0',
     'Sub::Name' => '0',
     'Test::More' => '0',
     'constant' => '0'
