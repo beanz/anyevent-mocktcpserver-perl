@@ -15,13 +15,15 @@ package AnyEvent::MockTCPServer;
                                    [ recv => 'HELLO', 'wait for "HELLO"' ],
                                    [ sleep => 0.1, 'wait 0.1s' ],
                                    [ code => sub { $cv->send('done') },
-                                     'send "done" with condvar'),
+                                     'send "done" with condvar' ],
                                    [ send => 'BYE', 'send "BYE"' ],
-                                   ...
+                                   # ...
                                   ],
                                   [ # second connection
-                                   ...
-                                  ]], ...);
+                                   # ...
+                                  ]],
+                                 # ...
+                                );
 
 =head1 DESCRIPTION
 
@@ -40,7 +42,6 @@ use AnyEvent;
 use AnyEvent::Socket;
 use AnyEvent::Handle;
 use Test::More;
-use Scalar::Util qw/weaken/;
 use Sub::Name;
 
 =method C<new(%parameters)>
@@ -96,11 +97,10 @@ sub new {
      @_
     };
   bless $self, $pkg;
-  my $weak_self = $self; weaken $self;
   $self->{server} =
     tcp_server $self->{host}, $self->{port}, subname('accept_cb' =>
       sub {
-        my ($fh, $host, $port) = @_;
+        my ($fh) = @_;
         print STDERR "In server: $fh ", fileno($fh), "\n" if DEBUG;
         my $handle;
         $handle =
@@ -163,7 +163,7 @@ sub listening {
 =method C<connect_address()>
 
 An array reference containing the address and port that the server is
-listening on.  This method blocks on the L<listening()> condvar until
+listening on.  This method blocks on the L</listening()> condvar until
 the server is listening.
 
 =cut
@@ -175,7 +175,7 @@ sub connect_address {
 =method C<connect_host()>
 
 The address that the server is listening on.  This method blocks on
-the L<listening()> condvar until the server is listening.
+the L</listening()> condvar until the server is listening.
 
 =cut
 
@@ -186,7 +186,7 @@ sub connect_host {
 =method C<connect_port()>
 
 The port that the server is listening on.  This method blocks on
-the L<listening()> condvar until the server is listening.
+the L</listening()> condvar until the server is listening.
 
 =cut
 
@@ -198,7 +198,7 @@ sub connect_port {
 
 A string containing the address and port that the server is listening
 on separated by a colon, 'C<:>'.  This method blocks on the
-L<listening()> condvar until the server is listening.
+L</listening()> condvar until the server is listening.
 
 =cut
 
@@ -253,7 +253,7 @@ sub send {
 =method C<packsend($handle, $actions, $send, $desc)>
 
 Sends the payload, C<send>, to the client after removing whitespace
-and packing it with 'H*'.  This method is equivalent to the L<send()>
+and packing it with 'H*'.  This method is equivalent to the L</send()>
 method when passed the packed string but debug messages contain the
 unpacked strings are easier to read.
 
@@ -296,7 +296,7 @@ sub recv {
 
 Removes whitespace and packs the string C<expect> with 'H*' and then
 waits for the resulting data from the client.  This method is
-equivalent to the L<recv()> method when passed the packed string but
+equivalent to the L</recv()> method when passed the packed string but
 debug messages contain the unpacked strings are easier to read.
 
 =cut
@@ -347,6 +347,7 @@ as the first argument.
 
 sub code {
   my ($self, $handle, $actions, $code, $desc) = @_;
+  print STDERR 'Executing ', $code, ' for ', $desc, "\n" if DEBUG;
   $code->($self, $handle, $desc);
   $self->next_action($handle, $actions);
 }
