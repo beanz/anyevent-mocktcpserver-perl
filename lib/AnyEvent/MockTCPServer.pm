@@ -241,9 +241,9 @@ version 1.111070
 
 =head1 DESCRIPTION
 
-This module is intended to provide a mechanism to define a server that
-will perform actions necessary to test a TCP client.  It is intended to
-be use when testing AnyEvent TCP client interfaces.
+This module provides a TCP server with a set of defined behaviours for
+use in testing of TCP clients.  It is intended to be use when testing
+AnyEvent TCP client interfaces.
 
 =head1 METHODS
 
