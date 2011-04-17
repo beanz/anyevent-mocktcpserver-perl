@@ -85,7 +85,7 @@ METHODS
     proceed with the next action. Must be called by any action methods
     written in subclasses of this class.
 
-ACTION ARGUMENTS
+ACTION METHOD ARGUMENTS
     These methods (and methods added by derived classes) can be used in
     action lists passed via the constructor "connections" parameter. The
     "handle" and "actions" arguments should be omitted from the action lists

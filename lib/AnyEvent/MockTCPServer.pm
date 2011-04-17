@@ -318,7 +318,7 @@ Internal method called by the action methods when the server should
 proceed with the next action.  Must be called by any action methods
 written in subclasses of this class.
 
-=head1 ACTION ARGUMENTS
+=head1 ACTION METHOD ARGUMENTS
 
 These methods (and methods added by derived classes) can be used in
 action lists passed via the constructor C<connections> parameter.  The
