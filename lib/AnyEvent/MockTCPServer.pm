@@ -260,8 +260,8 @@ A list reference containing elements for each expected connection.
 Each element is another list reference contain action elements.  Each
 action element is a list with an action method name and any arguments
 to the action method.  By convention, the final argument to the action
-method should be a description.  See the L<action method|/ACTIONS>
-descriptions for the other arguments.
+method should be a description.  See the
+L<action method|/ACTION METHODS> descriptions for the other arguments.
 
 =item C<host>
 
@@ -318,7 +318,7 @@ Internal method called by the action methods when the server should
 proceed with the next action.  Must be called by any action methods
 written in subclasses of this class.
 
-=head1 ACTIONS
+=head1 ACTION METHODS
 
 =head2 C<send($handle, $actions, $send, $desc)>
 
