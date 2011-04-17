@@ -14,13 +14,15 @@ SYNOPSIS
                                        [ recv => 'HELLO', 'wait for "HELLO"' ],
                                        [ sleep => 0.1, 'wait 0.1s' ],
                                        [ code => sub { $cv->send('done') },
-                                         'send "done" with condvar'),
+                                         'send "done" with condvar' ],
                                        [ send => 'BYE', 'send "BYE"' ],
-                                       ...
+                                       # ...
                                       ],
                                       [ # second connection
-                                       ...
-                                      ]], ...);
+                                       # ...
+                                      ]],
+                                     # ...
+                                    );
 
 DESCRIPTION
     This module is intended to provide a mechanism to define a server that

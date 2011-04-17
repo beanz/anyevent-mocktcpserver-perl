@@ -231,13 +231,15 @@ version 1.111070
                                    [ recv => 'HELLO', 'wait for "HELLO"' ],
                                    [ sleep => 0.1, 'wait 0.1s' ],
                                    [ code => sub { $cv->send('done') },
-                                     'send "done" with condvar'),
+                                     'send "done" with condvar' ],
                                    [ send => 'BYE', 'send "BYE"' ],
-                                   ...
+                                   # ...
                                   ],
                                   [ # second connection
-                                   ...
-                                  ]], ...);
+                                   # ...
+                                  ]],
+                                 # ...
+                                );
 
 =head1 DESCRIPTION
 
