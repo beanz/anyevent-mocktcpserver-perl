@@ -292,24 +292,24 @@ the server is listening on.
 =head2 C<connect_address()>
 
 An array reference containing the address and port that the server is
-listening on.  This method blocks on the L<listening()> condvar until
+listening on.  This method blocks on the L</listening()> condvar until
 the server is listening.
 
 =head2 C<connect_host()>
 
 The address that the server is listening on.  This method blocks on
-the L<listening()> condvar until the server is listening.
+the L</listening()> condvar until the server is listening.
 
 =head2 C<connect_port()>
 
 The port that the server is listening on.  This method blocks on
-the L<listening()> condvar until the server is listening.
+the L</listening()> condvar until the server is listening.
 
 =head2 C<connect_string()>
 
 A string containing the address and port that the server is listening
 on separated by a colon, 'C<:>'.  This method blocks on the
-L<listening()> condvar until the server is listening.
+L</listening()> condvar until the server is listening.
 
 =head2 C<next_action($handle, $actions)>
 
@@ -324,7 +324,7 @@ Sends the payload, C<send>, to the client.
 =head2 C<packsend($handle, $actions, $send, $desc)>
 
 Sends the payload, C<send>, to the client after removing whitespace
-and packing it with 'H*'.  This method is equivalent to the L<send()>
+and packing it with 'H*'.  This method is equivalent to the L</send()>
 method when passed the packed string but debug messages contain the
 unpacked strings are easier to read.
 
@@ -336,7 +336,7 @@ Waits for the data C<expect> from the client.
 
 Removes whitespace and packs the string C<expect> with 'H*' and then
 waits for the resulting data from the client.  This method is
-equivalent to the L<recv()> method when passed the packed string but
+equivalent to the L</recv()> method when passed the packed string but
 debug messages contain the unpacked strings are easier to read.
 
 =head2 C<sleep($handle, $actions, $interval, $desc)>

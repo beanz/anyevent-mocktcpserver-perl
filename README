@@ -62,20 +62,20 @@ METHODS
 
   "connect_address()"
     An array reference containing the address and port that the server is
-    listening on. This method blocks on the listening() condvar until the
+    listening on. This method blocks on the "listening()" condvar until the
     server is listening.
 
   "connect_host()"
     The address that the server is listening on. This method blocks on the
-    listening() condvar until the server is listening.
+    "listening()" condvar until the server is listening.
 
   "connect_port()"
     The port that the server is listening on. This method blocks on the
-    listening() condvar until the server is listening.
+    "listening()" condvar until the server is listening.
 
   "connect_string()"
     A string containing the address and port that the server is listening on
-    separated by a colon, '":"'. This method blocks on the listening()
+    separated by a colon, '":"'. This method blocks on the "listening()"
     condvar until the server is listening.
 
   "next_action($handle, $actions)"
@@ -88,7 +88,7 @@ METHODS
 
   "packsend($handle, $actions, $send, $desc)"
     Sends the payload, "send", to the client after removing whitespace and
-    packing it with 'H*'. This method is equivalent to the send() method
+    packing it with 'H*'. This method is equivalent to the "send()" method
     when passed the packed string but debug messages contain the unpacked
     strings are easier to read.
 
@@ -98,7 +98,7 @@ METHODS
   "packrecv($handle, $actions, $expect, $desc)"
     Removes whitespace and packs the string "expect" with 'H*' and then
     waits for the resulting data from the client. This method is equivalent
-    to the recv() method when passed the packed string but debug messages
+    to the "recv()" method when passed the packed string but debug messages
     contain the unpacked strings are easier to read.
 
   "sleep($handle, $actions, $interval, $desc)"
