@@ -320,24 +320,6 @@ written in subclasses of this class.
 
 =head1 ACTIONS
 
-These methods (and methods added by derived classes) can be used in
-action lists passed via the constructor C<connections> parameter.  The
-C<handle> and C<actions> arguments should be omitted from the action
-lists as they are supplied by the framework.
-
-=head1 AUTHOR
-
-Mark Hindess <soft-cpan@temporalanomaly.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Mark Hindess.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=head1 ACTIONS
-
 =head2 C<send($handle, $actions, $send, $desc)>
 
 Sends the payload, C<send>, to the client.
@@ -370,6 +352,24 @@ Causes the server to sleep for C<$interval> seconds.
 
 Causes the server to execute the code reference with the client handle
 as the first argument.
+
+=head1 ACTIONS
+
+These methods (and methods added by derived classes) can be used in
+action lists passed via the constructor C<connections> parameter.  The
+C<handle> and C<actions> arguments should be omitted from the action
+lists as they are supplied by the framework.
+
+=head1 AUTHOR
+
+Mark Hindess <soft-cpan@temporalanomaly.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Mark Hindess.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 
