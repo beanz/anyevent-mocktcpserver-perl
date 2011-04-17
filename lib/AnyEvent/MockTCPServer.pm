@@ -39,7 +39,7 @@ sub new {
   $self->{server} =
     tcp_server $self->{host}, $self->{port}, subname('accept_cb' =>
       sub {
-        my ($fh, $host, $port) = @_;
+        my ($fh) = @_;
         print STDERR "In server: $fh ", fileno($fh), "\n" if DEBUG;
         my $handle;
         $handle =
@@ -202,6 +202,7 @@ sub sleep {
 
 sub code {
   my ($self, $handle, $actions, $code, $desc) = @_;
+  print STDERR 'Executing ', $code, ' for ', $desc, "\n" if DEBUG;
   $code->($self, $handle, $desc);
   $self->next_action($handle, $actions);
 }
