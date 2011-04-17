@@ -2,7 +2,7 @@ NAME
     AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 VERSION
-    version 1.111060
+    version 1.111070
 
 SYNOPSIS
       use AnyEvent::MockTCPServer qw/:all/;
@@ -11,8 +11,7 @@ SYNOPSIS
         AnyEvent::MockTCPServer->new(connections =>
                                      [
                                       [ # first connection
-                                       [ recv => 'HELLO',
-                                         'wait for "HELLO"' ],
+                                       [ recv => 'HELLO', 'wait for "HELLO"' ],
                                        [ sleep => 0.1, 'wait 0.1s' ],
                                        [ code => sub { $cv->send('done') },
                                          'send "done" with condvar'),
@@ -24,6 +23,10 @@ SYNOPSIS
                                       ]], ...);
 
 DESCRIPTION
+    This module is intended to provide a mechanism to define a server that
+    will perform actions necessary to test a TCP client. It is intended to
+    be use when testing AnyEvent TCP client interfaces.
+
 METHODS
   "new(%parameters)"
     Constructs a new AnyEvent::MockTCPServer object. The parameter hash can

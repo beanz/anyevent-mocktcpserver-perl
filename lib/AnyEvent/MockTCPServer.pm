@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package AnyEvent::MockTCPServer;
 BEGIN {
-  $AnyEvent::MockTCPServer::VERSION = '1.111060';
+  $AnyEvent::MockTCPServer::VERSION = '1.111070';
 }
 
 # ABSTRACT: Mock TCP Server using AnyEvent
@@ -217,7 +217,7 @@ AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 =head1 VERSION
 
-version 1.111060
+version 1.111070
 
 =head1 SYNOPSIS
 
@@ -227,8 +227,7 @@ version 1.111060
     AnyEvent::MockTCPServer->new(connections =>
                                  [
                                   [ # first connection
-                                   [ recv => 'HELLO',
-                                     'wait for "HELLO"' ],
+                                   [ recv => 'HELLO', 'wait for "HELLO"' ],
                                    [ sleep => 0.1, 'wait 0.1s' ],
                                    [ code => sub { $cv->send('done') },
                                      'send "done" with condvar'),
@@ -240,6 +239,10 @@ version 1.111060
                                   ]], ...);
 
 =head1 DESCRIPTION
+
+This module is intended to provide a mechanism to define a server that
+will perform actions necessary to test a TCP client.  It is intended to
+be use when testing AnyEvent TCP client interfaces.
 
 =head1 METHODS
 
