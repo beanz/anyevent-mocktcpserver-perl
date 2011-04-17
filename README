@@ -90,9 +90,9 @@ METHODS
 
   "packsend($handle, $actions, $send, $desc)"
     Sends the payload, "send", to the client after removing whitespace and
-    packing it with 'H*'. This method is equivalent to the "send()" method
-    when passed the packed string but debug messages contain the unpacked
-    strings are easier to read.
+    packing it with 'H*'. This method is equivalent to the "send($handle,
+    $actions, $send, $desc)" method when passed the packed string but debug
+    messages contain the unpacked strings are easier to read.
 
   "recv($handle, $actions, $expect, $desc)"
     Waits for the data "expect" from the client.
@@ -100,8 +100,9 @@ METHODS
   "packrecv($handle, $actions, $expect, $desc)"
     Removes whitespace and packs the string "expect" with 'H*' and then
     waits for the resulting data from the client. This method is equivalent
-    to the "recv()" method when passed the packed string but debug messages
-    contain the unpacked strings are easier to read.
+    to the "recv($handle, $actions, $expect, $desc)" method when passed the
+    packed string but debug messages contain the unpacked strings are easier
+    to read.
 
   "sleep($handle, $actions, $interval, $desc)"
     Causes the server to sleep for $interval seconds.
