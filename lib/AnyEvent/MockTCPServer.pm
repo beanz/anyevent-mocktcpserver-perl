@@ -54,11 +54,11 @@ can contain values for the following keys:
 =item C<connections>
 
 A list reference containing elements for each expected connection.
-Each element is another list reference contain action elements.
-Each action element is a list with an action method name and any
-arguments to the action method.  By convention, the final argument
-to the action method should be a description.  See the action
-method descriptions for the other arguments.
+Each element is another list reference contain action elements.  Each
+action element is a list with an action method name and any arguments
+to the action method.  By convention, the final argument to the action
+method should be a description.  See the
+L<action method|/ACTION METHODS> descriptions for the other arguments.
 
 =item C<host>
 
@@ -229,16 +229,16 @@ sub next_action {
   $self->$method($handle, $actions, @$action);
 }
 
-=head1 ACTION METHODS
+=head1 ACTION METHOD ARGUMENTS
 
 These methods (and methods added by derived classes) can be used in
 action lists passed via the constructor C<connections> parameter.  The
-C<handle> and C<actions> arguments should be omitted from the action
+C<$handle> and C<$actions> arguments should be omitted from the action
 lists as they are supplied by the framework.
 
-=method C<send($handle, $actions, $send, $desc)>
+=action C<send($handle, $actions, $send, $desc)>
 
-Sends the payload, C<send>, to the client.
+Sends the payload, C<$send>, to the client.
 
 =cut
 
@@ -250,9 +250,9 @@ sub send {
   $self->next_action($handle, $actions);
 }
 
-=method C<packsend($handle, $actions, $send, $desc)>
+=action C<packsend($handle, $actions, $send, $desc)>
 
-Sends the payload, C<send>, to the client after removing whitespace
+Sends the payload, C<$send>, to the client after removing whitespace
 and packing it with 'H*'.  This method is equivalent to the
 L</send($handle, $actions, $send, $desc)> method when passed the
 packed string but debug messages contain the unpacked strings are
@@ -271,9 +271,9 @@ sub packsend {
   $self->next_action($handle, $actions);
 }
 
-=method C<recv($handle, $actions, $expect, $desc)>
+=action C<recv($handle, $actions, $expect, $desc)>
 
-Waits for the data C<expect> from the client.
+Waits for the data C<$expect> from the client.
 
 =cut
 
@@ -293,9 +293,9 @@ sub recv {
                      });
 }
 
-=method C<packrecv($handle, $actions, $expect, $desc)>
+=action C<packrecv($handle, $actions, $expect, $desc)>
 
-Removes whitespace and packs the string C<expect> with 'H*' and then
+Removes whitespace and packs the string C<$expect> with 'H*' and then
 waits for the resulting data from the client.  This method is
 equivalent to the L</recv($handle, $actions, $expect, $desc)> method
 when passed the packed string but debug messages contain the unpacked
@@ -323,7 +323,7 @@ sub packrecv {
                      });
 }
 
-=method C<sleep($handle, $actions, $interval, $desc)>
+=action C<sleep($handle, $actions, $interval, $desc)>
 
 Causes the server to sleep for C<$interval> seconds.
 
@@ -340,7 +340,7 @@ sub sleep {
                        });
 }
 
-=method C<code($handle, $actions, $code, $desc)>
+=action C<code($handle, $actions, $code, $desc)>
 
 Causes the server to execute the code reference with the client handle
 as the first argument.
