@@ -257,11 +257,11 @@ can contain values for the following keys:
 =item C<connections>
 
 A list reference containing elements for each expected connection.
-Each element is another list reference contain action elements.
-Each action element is a list with an action method name and any
-arguments to the action method.  By convention, the final argument
-to the action method should be a description.  See the action
-method descriptions for the other arguments.
+Each element is another list reference contain action elements.  Each
+action element is a list with an action method name and any arguments
+to the action method.  By convention, the final argument to the action
+method should be a description.  See the L<action method|/ACTIONS>
+descriptions for the other arguments.
 
 =item C<host>
 
@@ -317,6 +317,24 @@ L</listening()> condvar until the server is listening.
 Internal method called by the action methods when the server should
 proceed with the next action.  Must be called by any action methods
 written in subclasses of this class.
+
+=head1 ACTIONS
+
+These methods (and methods added by derived classes) can be used in
+action lists passed via the constructor C<connections> parameter.  The
+C<handle> and C<actions> arguments should be omitted from the action
+lists as they are supplied by the framework.
+
+=head1 AUTHOR
+
+Mark Hindess <soft-cpan@temporalanomaly.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Mark Hindess.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =head1 ACTIONS
 
