@@ -253,9 +253,10 @@ sub send {
 =method C<packsend($handle, $actions, $send, $desc)>
 
 Sends the payload, C<send>, to the client after removing whitespace
-and packing it with 'H*'.  This method is equivalent to the L</send()>
-method when passed the packed string but debug messages contain the
-unpacked strings are easier to read.
+and packing it with 'H*'.  This method is equivalent to the
+L</send($handle, $actions, $send, $desc)> method when passed the
+packed string but debug messages contain the unpacked strings are
+easier to read.
 
 =cut
 
@@ -296,8 +297,9 @@ sub recv {
 
 Removes whitespace and packs the string C<expect> with 'H*' and then
 waits for the resulting data from the client.  This method is
-equivalent to the L</recv()> method when passed the packed string but
-debug messages contain the unpacked strings are easier to read.
+equivalent to the L</recv($handle, $actions, $expect, $desc)> method
+when passed the packed string but debug messages contain the unpacked
+strings are easier to read.
 
 =cut
 
