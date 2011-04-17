@@ -25,6 +25,10 @@ package AnyEvent::MockTCPServer;
 
 =head1 DESCRIPTION
 
+This module is intended to provide a mechanism to define a server that
+will perform actions necessary to test a TCP client.  It is intended to
+be use when testing AnyEvent TCP client interfaces.
+
 =cut
 
 1;
