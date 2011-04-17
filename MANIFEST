@@ -20,8 +20,13 @@ t/03-two.t
 t/04-timeout.t
 t/05-error.t
 t/author-critic.t
+t/release-common_spelling.t
 t/release-eol.t
 t/release-kwalitee.t
 t/release-no-tabs.t
 t/release-pod-coverage.t
+t/release-pod-linkcheck.t
+t/release-pod-no404s.t
 t/release-pod-syntax.t
+t/release-synopsis.t
+t/release-unused-vars.t
