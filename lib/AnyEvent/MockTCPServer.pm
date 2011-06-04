@@ -293,6 +293,34 @@ sub recv {
                      });
 }
 
+=action C<recvline($handle, $actions, $expect, $desc)>
+
+Waits for a line of data C<$expect> from the client.  See
+L<AnyEvent::Handle> for the definition of 'line'.
+
+=cut
+
+sub recvline {
+  my ($self, $handle, $actions, $recv, $desc) = @_;
+  print STDERR 'Waiting for ', $recv, ' ', $desc, "\n" if DEBUG;
+  print STDERR "Waiting for line\n" if DEBUG;
+  $handle->push_read(line =>
+                     sub {
+                       my ($hdl, $data) = @_;
+                       print STDERR "In receive handler\n" if DEBUG;
+                       $recv = $recv->() if (ref $recv && ref $recv eq 'CODE');
+                       if (ref $recv) {
+                         like($data, $recv,
+                            '... correct message received by server - '.$desc);
+                       } else {
+                         is($data, $recv,
+                            '... correct message received by server - '.$desc);
+                       }
+                       $self->next_action($hdl, $actions);
+                       1;
+                     });
+}
+
 =action C<packrecv($handle, $actions, $expect, $desc)>
 
 Removes whitespace and packs the string C<$expect> with 'H*' and then
