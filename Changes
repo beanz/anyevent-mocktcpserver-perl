@@ -1,6 +1,7 @@
 Revision history for Perl extension AnyEvent::MockTCPServer.
 
-1.111070  2011-04-17 11:54:31 Europe/London
+1.111550  2011-06-04 15:19:18 Europe/London
+    - Fixing Pod layer: collect action methods correctly.
 
 1.111070  2011-04-17 11:13:34 Europe/London
     - Initial release.
