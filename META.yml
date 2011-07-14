@@ -21,6 +21,6 @@ requires:
   Test::More: 0
   constant: 0
 resources:
-  bugtracker: http://github.com/beanz/anyevent-mocktcpserver-perl/issues
+  bugtracker: https://github.com/beanz/anyevent-mocktcpserver-perl/issues
   repository: git://github.com/beanz/anyevent-mocktcpserver-perl.git
-version: 1.111630
+version: 1.111950

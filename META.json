@@ -38,14 +38,14 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "http://github.com/beanz/anyevent-mocktcpserver-perl/issues"
+         "web" : "https://github.com/beanz/anyevent-mocktcpserver-perl/issues"
       },
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/beanz/anyevent-mocktcpserver-perl.git",
-         "web" : "http://github.com/beanz/anyevent-mocktcpserver-perl"
+         "web" : "https://github.com/beanz/anyevent-mocktcpserver-perl"
       }
    },
-   "version" : "1.111630"
+   "version" : "1.111950"
 }
 
