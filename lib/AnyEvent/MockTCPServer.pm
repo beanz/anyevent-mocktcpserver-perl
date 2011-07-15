@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package AnyEvent::MockTCPServer;
 BEGIN {
-  $AnyEvent::MockTCPServer::VERSION = '1.111070';
+  $AnyEvent::MockTCPServer::VERSION = '1.111960';
 }
 
 # ABSTRACT: Mock TCP Server using AnyEvent
@@ -165,6 +165,28 @@ sub recv {
 }
 
 
+sub recvline {
+  my ($self, $handle, $actions, $recv, $desc) = @_;
+  print STDERR 'Waiting for ', $recv, ' ', $desc, "\n" if DEBUG;
+  print STDERR "Waiting for line\n" if DEBUG;
+  $handle->push_read(line =>
+                     sub {
+                       my ($hdl, $data) = @_;
+                       print STDERR "In receive handler\n" if DEBUG;
+                       $recv = $recv->() if (ref $recv && ref $recv eq 'CODE');
+                       if (ref $recv) {
+                         like($data, $recv,
+                            '... correct message received by server - '.$desc);
+                       } else {
+                         is($data, $recv,
+                            '... correct message received by server - '.$desc);
+                       }
+                       $self->next_action($hdl, $actions);
+                       1;
+                     });
+}
+
+
 sub packrecv {
   my ($self, $handle, $actions, $data, $desc) = @_;
   my $recv = $data;
@@ -216,7 +238,7 @@ AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 =head1 VERSION
 
-version 1.111070
+version 1.111960
 
 =head1 SYNOPSIS
 
@@ -257,11 +279,11 @@ can contain values for the following keys:
 =item C<connections>
 
 A list reference containing elements for each expected connection.
-Each element is another list reference contain action elements.
-Each action element is a list with an action method name and any
-arguments to the action method.  By convention, the final argument
-to the action method should be a description.  See the action
-method descriptions for the other arguments.
+Each element is another list reference contain action elements.  Each
+action element is a list with an action method name and any arguments
+to the action method.  By convention, the final argument to the action
+method should be a description.  See the
+L<action method|/ACTION METHODS> descriptions for the other arguments.
 
 =item C<host>
 
@@ -318,13 +340,22 @@ Internal method called by the action methods when the server should
 proceed with the next action.  Must be called by any action methods
 written in subclasses of this class.
 
+=head1 ACTION METHOD ARGUMENTS
+
+These methods (and methods added by derived classes) can be used in
+action lists passed via the constructor C<connections> parameter.  The
+C<$handle> and C<$actions> arguments should be omitted from the action
+lists as they are supplied by the framework.
+
+=head1 ACTION METHODS
+
 =head2 C<send($handle, $actions, $send, $desc)>
 
-Sends the payload, C<send>, to the client.
+Sends the payload, C<$send>, to the client.
 
 =head2 C<packsend($handle, $actions, $send, $desc)>
 
-Sends the payload, C<send>, to the client after removing whitespace
+Sends the payload, C<$send>, to the client after removing whitespace
 and packing it with 'H*'.  This method is equivalent to the
 L</send($handle, $actions, $send, $desc)> method when passed the
 packed string but debug messages contain the unpacked strings are
@@ -332,11 +363,16 @@ easier to read.
 
 =head2 C<recv($handle, $actions, $expect, $desc)>
 
-Waits for the data C<expect> from the client.
+Waits for the data C<$expect> from the client.
+
+=head2 C<recvline($handle, $actions, $expect, $desc)>
+
+Waits for a line of data C<$expect> from the client.  See
+L<AnyEvent::Handle> for the definition of 'line'.
 
 =head2 C<packrecv($handle, $actions, $expect, $desc)>
 
-Removes whitespace and packs the string C<expect> with 'H*' and then
+Removes whitespace and packs the string C<$expect> with 'H*' and then
 waits for the resulting data from the client.  This method is
 equivalent to the L</recv($handle, $actions, $expect, $desc)> method
 when passed the packed string but debug messages contain the unpacked
@@ -350,13 +386,6 @@ Causes the server to sleep for C<$interval> seconds.
 
 Causes the server to execute the code reference with the client handle
 as the first argument.
-
-=head1 ACTION METHODS
-
-These methods (and methods added by derived classes) can be used in
-action lists passed via the constructor C<connections> parameter.  The
-C<handle> and C<actions> arguments should be omitted from the action
-lists as they are supplied by the framework.
 
 =head1 AUTHOR
 

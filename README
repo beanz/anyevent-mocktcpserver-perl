@@ -2,7 +2,7 @@ NAME
     AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 VERSION
-    version 1.111070
+    version 1.111960
 
 SYNOPSIS
       use AnyEvent::MockTCPServer qw/:all/;
@@ -85,24 +85,35 @@ METHODS
     proceed with the next action. Must be called by any action methods
     written in subclasses of this class.
 
+ACTION METHOD ARGUMENTS
+    These methods (and methods added by derived classes) can be used in
+    action lists passed via the constructor "connections" parameter. The
+    $handle and $actions arguments should be omitted from the action lists
+    as they are supplied by the framework.
+
+ACTION METHODS
   "send($handle, $actions, $send, $desc)"
-    Sends the payload, "send", to the client.
+    Sends the payload, $send, to the client.
 
   "packsend($handle, $actions, $send, $desc)"
-    Sends the payload, "send", to the client after removing whitespace and
+    Sends the payload, $send, to the client after removing whitespace and
     packing it with 'H*'. This method is equivalent to the "send($handle,
     $actions, $send, $desc)" method when passed the packed string but debug
     messages contain the unpacked strings are easier to read.
 
   "recv($handle, $actions, $expect, $desc)"
-    Waits for the data "expect" from the client.
+    Waits for the data $expect from the client.
+
+  "recvline($handle, $actions, $expect, $desc)"
+    Waits for a line of data $expect from the client. See AnyEvent::Handle
+    for the definition of 'line'.
 
   "packrecv($handle, $actions, $expect, $desc)"
-    Removes whitespace and packs the string "expect" with 'H*' and then
-    waits for the resulting data from the client. This method is equivalent
-    to the "recv($handle, $actions, $expect, $desc)" method when passed the
-    packed string but debug messages contain the unpacked strings are easier
-    to read.
+    Removes whitespace and packs the string $expect with 'H*' and then waits
+    for the resulting data from the client. This method is equivalent to the
+    "recv($handle, $actions, $expect, $desc)" method when passed the packed
+    string but debug messages contain the unpacked strings are easier to
+    read.
 
   "sleep($handle, $actions, $interval, $desc)"
     Causes the server to sleep for $interval seconds.
@@ -110,12 +121,6 @@ METHODS
   "code($handle, $actions, $code, $desc)"
     Causes the server to execute the code reference with the client handle
     as the first argument.
-
-ACTION METHODS
-    These methods (and methods added by derived classes) can be used in
-    action lists passed via the constructor "connections" parameter. The
-    "handle" and "actions" arguments should be omitted from the action lists
-    as they are supplied by the framework.
 
 AUTHOR
     Mark Hindess <soft-cpan@temporalanomaly.com>
