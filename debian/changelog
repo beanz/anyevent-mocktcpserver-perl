@@ -1,8 +1,8 @@
-libanyevent-mocktcpserver-perl (1.111550-1) unstable; urgency=low
+libanyevent-mocktcpserver-perl (1.111960-1) unstable; urgency=low
 
   * New upstream release.
 
- -- Mark Hindess <soft-debian@temporalanomaly.com>  Fri, 15 Jul 2011 21:55:29 +0100
+ -- Mark Hindess <soft-debian@temporalanomaly.com>  Fri, 15 Jul 2011 21:54:45 +0100
 
 libanyevent-mocktcpserver-perl (1.111070-1) unstable; urgency=low
 
