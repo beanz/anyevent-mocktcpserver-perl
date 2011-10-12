@@ -11,6 +11,7 @@ use AnyEvent::Socket;
 use AnyEvent::MockTCPServer qw/:all/;
 
 my $done = AnyEvent->condvar;
+my $done2 = AnyEvent->condvar;
 my $server;
 eval {
   $server =
@@ -30,7 +31,7 @@ eval {
 };
 plan skip_all => "Failed to create dummy server: $@" if ($@);
 my ($host, $port) = $server->connect_address;
-plan tests => 8;
+plan tests => 10;
 
 my $timeout = AnyEvent->timer(after => 20,
                               cb => sub { $done->send('timeout') });
@@ -38,7 +39,7 @@ my $timeout = AnyEvent->timer(after => 20,
 my $cv = AnyEvent->condvar;
 tcp_connect $host, $port, sub {
   my ($fh) = @_;
-  ok($fh, 'connected') or die "Failed to connect: $!\n";
+  ok($fh, 'connected(1)') or die "Failed to connect: $!\n";
   $cv->send(1);
   my $hdl;
   $hdl = AnyEvent::Handle->new(
@@ -46,10 +47,10 @@ tcp_connect $host, $port, sub {
                                on_error => sub { $done->send('error') });
   $hdl->push_write('HELLO');
   $hdl->on_drain(sub {
-                   ok(1, 'drained');
+                   ok(1, 'drained(1)');
                    $hdl->push_read(chunk => 3, sub {
                                      my ($handle, $data) = @_;
-                                     is($data, 'BYE', '... got bye');
+                                     is($data, 'BYE', '... got bye(1)');
                                      $done->send('done');
                                    });
                  });
@@ -59,21 +60,21 @@ $cv->recv; # make sure first connect happens first
 
 tcp_connect $host, $port, sub {
   my ($fh) = @_;
-  ok($fh, 'connected') or die "Failed to connect: $!\n";
+  ok($fh, 'connected(2)') or die "Failed to connect: $!\n";
   my $hdl;
   $hdl = AnyEvent::Handle->new(
                                fh => $fh,
-                               on_error => sub { $done->send('error') });
+                               on_error => sub { $done2->send('error') });
   $hdl->push_write('HELLO2');
   $hdl->on_drain(sub {
-                   ok(1, 'drained');
-                   $hdl->push_read(chunk => 3, sub {
+                   ok(1, 'drained(2)');
+                   $hdl->push_read(chunk => 4, sub {
                                      my ($handle, $data) = @_;
-                                     is($data, 'BYE2', '... got bye');
-                                     $done->send('done');
+                                     is($data, 'BYE2', '... got bye(2)');
+                                     $done2->send('done');
                                    });
                  });
 };
 
-my $res = $done->recv;
-is($res, 'done', 'done');
+is($done->recv, 'done', 'done(1)');
+is($done2->recv, 'done', 'done(2)');
