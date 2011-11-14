@@ -85,18 +85,28 @@ with message C<"server timeout\n">.
 
 sub new {
   my $pkg = shift;
+  my $finished_cv = AnyEvent->condvar;
   my $self =
     {
      connections => [],
      listening => AnyEvent->condvar,
+     finished_cv => $finished_cv,
      host => '127.0.0.1',
      port => undef,
      timeout => 2,
      on_timeout => subname('default_client_on_timeout_cb' =>
-                           sub { die "server timeout\n"; }),
+                           sub {
+                             $finished_cv->end;
+                             die "server timeout\n";
+                           }),
      @_
     };
   bless $self, $pkg;
+
+  foreach (@{$self->{connections}}) {
+    $finished_cv->begin;
+  }
+
   $self->{server} =
     tcp_server $self->{host}, $self->{port}, subname('accept_cb' =>
       sub {
@@ -206,6 +216,18 @@ sub connect_string {
   join ':', shift->connect_address
 }
 
+=method C<finished_cv()>
+
+Condvar that is notified when the mock server has completed processing
+of all the expected connections.
+
+=cut
+
+sub finished_cv {
+  my $self = shift;
+  $self->{finished_cv};
+}
+
 =method C<next_action($handle, $actions)>
 
 Internal method called by the action methods when the server should
@@ -222,6 +244,7 @@ sub next_action {
     print STDERR "closing connection\n" if DEBUG;
     $handle->push_shutdown;
     delete $self->{handles}->{$handle};
+    $self->{finished_cv}->end;
     return;
   }
   my $method = shift @$action;
