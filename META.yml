@@ -23,4 +23,4 @@ requires:
 resources:
   bugtracker: https://github.com/beanz/anyevent-mocktcpserver-perl/issues
   repository: git://github.com/beanz/anyevent-mocktcpserver-perl.git
-version: 1.112850
+version: 1.113250

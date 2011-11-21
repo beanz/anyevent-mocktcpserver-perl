@@ -2,7 +2,7 @@ NAME
     AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 VERSION
-    version 1.112850
+    version 1.113250
 
 SYNOPSIS
       use AnyEvent::MockTCPServer qw/:all/;
@@ -79,6 +79,10 @@ METHODS
     A string containing the address and port that the server is listening on
     separated by a colon, '":"'. This method blocks on the "listening()"
     condvar until the server is listening.
+
+  "finished_cv()"
+    Condvar that is notified when the mock server has completed processing
+    of all the expected connections.
 
   "next_action($handle, $actions)"
     Internal method called by the action methods when the server should
