@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package AnyEvent::MockTCPServer;
 BEGIN {
-  $AnyEvent::MockTCPServer::VERSION = '1.112850';
+  $AnyEvent::MockTCPServer::VERSION = '1.113250';
 }
 
 # ABSTRACT: Mock TCP Server using AnyEvent
@@ -22,18 +22,28 @@ use Sub::Name;
 
 sub new {
   my $pkg = shift;
+  my $finished_cv = AnyEvent->condvar;
   my $self =
     {
      connections => [],
      listening => AnyEvent->condvar,
+     finished_cv => $finished_cv,
      host => '127.0.0.1',
      port => undef,
      timeout => 2,
      on_timeout => subname('default_client_on_timeout_cb' =>
-                           sub { die "server timeout\n"; }),
+                           sub {
+                             $finished_cv->end;
+                             die "server timeout\n";
+                           }),
      @_
     };
   bless $self, $pkg;
+
+  foreach (@{$self->{connections}}) {
+    $finished_cv->begin;
+  }
+
   $self->{server} =
     tcp_server $self->{host}, $self->{port}, subname('accept_cb' =>
       sub {
@@ -111,6 +121,12 @@ sub connect_string {
 }
 
 
+sub finished_cv {
+  my $self = shift;
+  $self->{finished_cv};
+}
+
+
 sub next_action {
   my ($self, $handle, $actions) = @_;
   print STDERR 'In handle connection ', scalar @$actions, "\n" if DEBUG;
@@ -119,6 +135,7 @@ sub next_action {
     print STDERR "closing connection\n" if DEBUG;
     $handle->push_shutdown;
     delete $self->{handles}->{$handle};
+    $self->{finished_cv}->end;
     return;
   }
   my $method = shift @$action;
@@ -238,7 +255,7 @@ AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 =head1 VERSION
 
-version 1.112850
+version 1.113250
 
 =head1 SYNOPSIS
 
@@ -333,6 +350,11 @@ the L</listening()> condvar until the server is listening.
 A string containing the address and port that the server is listening
 on separated by a colon, 'C<:>'.  This method blocks on the
 L</listening()> condvar until the server is listening.
+
+=head2 C<finished_cv()>
+
+Condvar that is notified when the mock server has completed processing
+of all the expected connections.
 
 =head2 C<next_action($handle, $actions)>
 
