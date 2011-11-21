@@ -1,6 +1,7 @@
 Revision history for Perl extension AnyEvent::MockTCPServer.
 
 {{$NEXT}}
+    - Add finished_cv method to wait for all connections to be processed.
 
 1.112850  2011-10-12 20:11:36 Europe/London
     - Fix test case errors - thx CPAN testers.
