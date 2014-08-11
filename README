@@ -2,7 +2,7 @@ NAME
     AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 VERSION
-    version 1.142000
+    version 1.142230
 
 SYNOPSIS
       use AnyEvent::MockTCPServer qw/:all/;

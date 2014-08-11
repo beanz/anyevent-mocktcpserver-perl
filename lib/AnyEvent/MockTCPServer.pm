@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package AnyEvent::MockTCPServer;
-$AnyEvent::MockTCPServer::VERSION = '1.142000';
+$AnyEvent::MockTCPServer::VERSION = '1.142230';
 # ABSTRACT: Mock TCP Server using AnyEvent
 
 
@@ -253,7 +253,7 @@ AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 =head1 VERSION
 
-version 1.142000
+version 1.142230
 
 =head1 SYNOPSIS
 
