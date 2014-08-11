@@ -1,10 +1,7 @@
 use strict;
 use warnings;
 package AnyEvent::MockTCPServer;
-BEGIN {
-  $AnyEvent::MockTCPServer::VERSION = '1.113250';
-}
-
+$AnyEvent::MockTCPServer::VERSION = '1.142230';
 # ABSTRACT: Mock TCP Server using AnyEvent
 
 
@@ -247,6 +244,7 @@ sub code {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -255,7 +253,7 @@ AnyEvent::MockTCPServer - Mock TCP Server using AnyEvent
 
 =head1 VERSION
 
-version 1.113250
+version 1.142230
 
 =head1 SYNOPSIS
 
@@ -415,10 +413,9 @@ Mark Hindess <soft-cpan@temporalanomaly.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Mark Hindess.
+This software is copyright (c) 2014 by Mark Hindess.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
