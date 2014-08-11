@@ -7,7 +7,7 @@ use constant {
   DEBUG => $ENV{ANYEVENT_MOCK_TCP_SERVER_TEST_DEBUG}
 };
 BEGIN {
-  $ENV{PERL_ANYEVENT_MODEL} = 'Perl' unless ($ENV{PERL_ANYEVENT_MODEL});
+  $ENV{PERL_ANYEVENT_MODEL} = 'Perl';
 }
 use Test::More;
 use AnyEvent::Socket;
