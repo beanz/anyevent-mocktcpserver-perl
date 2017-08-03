@@ -15,6 +15,7 @@ debian/copyright
 debian/rules
 debian/watch
 dist.ini
+dist.ini.orig
 lib/AnyEvent/MockTCPServer.pm
 t/01-simple.t
 t/02-unexpected.t
