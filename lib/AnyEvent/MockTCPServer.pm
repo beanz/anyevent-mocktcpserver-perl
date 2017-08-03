@@ -92,7 +92,7 @@ sub new {
      listening => AnyEvent->condvar,
      finished_cv => $finished_cv,
      host => '127.0.0.1',
-     port => undef,
+     port => 0,
      timeout => 2,
      on_timeout => subname('default_client_on_timeout_cb' =>
                            sub {
