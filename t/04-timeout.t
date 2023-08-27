@@ -11,7 +11,7 @@ BEGIN {
 }
 use Test::More;
 use AnyEvent::Socket;
-use AnyEvent::MockTCPServer qw/:all/;
+use AnyEvent::MockTCPServer;
 
 my $done = AnyEvent->condvar;
 my $server;
